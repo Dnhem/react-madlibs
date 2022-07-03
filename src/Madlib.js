@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import MadlibForm from "./MadlibForm";
 import { v4 as uuid } from "uuid";
 
@@ -8,11 +8,15 @@ const Madlib = () => {
   const [ madlib, setMadlib ] = useState("");
   const createStory = newStory => {
     setStory(story => ({ ...story, ...newStory, id: uuid() }));
-    setMadlib(
-      madlib => `The ${color} ${noun} adored the ${adjective} ${nounTwo}`
-    );
   };
-
+  useEffect(
+    () => {
+      setMadlib(
+        madlib => `The ${color} ${noun} adored the ${adjective} ${nounTwo}`
+      );
+    },
+    [ color, noun, adjective, nounTwo ]
+  );
   return (
     <div>
       <h1>Madlibs!</h1>
